@@ -10,15 +10,11 @@
 
     <link href="ASSETS/css/vanilla.css" rel="stylesheet" />
     <title>
-        45|STDioS - Home
+        45|STDioS - Contact Us
     </title>
     <link rel="icon" type="image/x-icon" href="ASSETS/css/Untitled design.jpg" />
 
     <style>
-        /*
-            CLEANED: The 'header' and ':hover' styles were moved to the consolidated CSS.
-            Keeping the non-conflicting vendor/placeholder styles.
-        */
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -37,13 +33,9 @@
         }
 
         .form-wrapper {
-            /* 1. Make the container a flexible box */
             display: flex;
-
-            /* 2. Horizontally center the content (the form) */
             justify-content: center;
 
-            /* Optional: Ensure the wrapper takes up the full width */
             width: 100%;
         }
     </style>
@@ -222,97 +214,6 @@
         </div>
     </div>
 </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const header = document.querySelector('.main-header');
-
-            // NOTE: Ensure your HTML elements have these IDs for the JS to work
-            const menuButton = document.getElementById('menu-toggle'); // Assuming you're using the class .menu-toggle now
-            const menuClose = document.getElementById('menu-close-button'); // Assuming you're using the class .menu-close-button now
-
-            function toggleMenu() {
-                // Toggles the 'is-open' class on the header to reveal the mobile menu (via CSS)
-                header.classList.toggle('is-open');
-                const isExpanded = header.classList.contains('is-open');
-                if (menuButton) menuButton.setAttribute('aria-expanded', isExpanded);
-            }
-
-            // Attach event listeners
-            if (menuButton) menuButton.addEventListener('click', toggleMenu);
-            if (menuClose) menuClose.addEventListener('click', toggleMenu);
-
-
-            // --- Testimonial Carousel Logic ---
-
-            let currentPosition = 0; // Tracks the starting index of the visible cards
-            const track = document.getElementById('photoCarouselTrack');
-            const items = track ? track.querySelectorAll('.carousel-card') : [];
-            const totalItems = items.length;
-
-            function getItemsPerView() {
-                // Based on the CSS media queries (approximate checks)
-                const width = window.innerWidth;
-                if (width >= 1024) {
-                    return 3; // Desktop
-                } else if (width >= 768) {
-                    return 2; // Tablet
-                } else {
-                    return 1; // Mobile
-                }
-            }
-
-            function moveCarousel(direction) {
-                const itemsPerView = getItemsPerView();
-                const maxStartPosition = totalItems - itemsPerView;
-
-                // Exit if there are not enough items to scroll
-                if (totalItems <= itemsPerView) return;
-
-                // Calculate the new start position
-                let newPosition = currentPosition + direction;
-
-                // Implement Looping Logic
-                if (newPosition > maxStartPosition) {
-                    newPosition = 0; // Loop back to start
-                } else if (newPosition < 0) {
-                    newPosition = maxStartPosition; // Loop back to end
-                }
-
-                currentPosition = newPosition;
-
-                // Calculate the width of a single item unit based on the current view
-                let itemWidthPercentage;
-                if (itemsPerView === 3) {
-                    itemWidthPercentage = 33.333;
-                } else if (itemsPerView === 2) {
-                    itemWidthPercentage = 50;
-                } else {
-                    itemWidthPercentage = 100;
-                }
-
-                // Calculate the distance to move
-                const movePercentage = currentPosition * itemWidthPercentage;
-
-                // Apply the CSS transformation to slide the track
-                track.style.transform = `translateX(-${movePercentage}%)`;
-            }
-
-            // Attach the responsive move function to the global scope (for the onclick in HTML)
-            window.moveCarousel = moveCarousel;
-
-            // Optional: Recalculate position on window resize
-            let resizeTimer;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(() => {
-                    // Reset position to 0 and recalculate the view on resize
-                    currentPosition = 0;
-                    moveCarousel(0); // Call moveCarousel with 0 to re-apply the correct transform
-                }, 200);
-            });
-        });
-    </script>
 </body>
 
 </html>

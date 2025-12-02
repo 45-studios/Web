@@ -222,23 +222,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const header = document.querySelector('.main-header');
-
-            // NOTE: Ensure your HTML elements have these IDs for the JS to work
-            const menuButton = document.getElementById('menu-toggle'); // Assuming you're using the class .menu-toggle now
-            const menuClose = document.getElementById('menu-close-button'); // Assuming you're using the class .menu-close-button now
-
-            function toggleMenu() {
-                // Toggles the 'is-open' class on the header to reveal the mobile menu (via CSS)
-                header.classList.toggle('is-open');
-                const isExpanded = header.classList.contains('is-open');
-                if (menuButton) menuButton.setAttribute('aria-expanded', isExpanded);
-            }
-
-            // Attach event listeners
-            if (menuButton) menuButton.addEventListener('click', toggleMenu);
-            if (menuClose) menuClose.addEventListener('click', toggleMenu);
-
-
             // --- Testimonial Carousel Logic ---
 
             let currentPosition = 0; // Tracks the starting index of the visible cards
